@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>종합 안내문 - 행정체제 개편 및 혹서기 대비 안내</title>
+<style>
+  :root{
+    --main-blue:#1d5d9b;
+    --light-blue:#eaf3fb;
+    --warn-orange:#d9534f;
+    --warn-bg:#fdf2f0;
+    --text-dark:#222;
+    --border:#d8e3ee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+    background:#f4f7fa;
+    margin:0;
+    padding:0;
+    color:var(--text-dark);
+    line-height:1.7;
+  }
+  .container{
+    max-width:760px;
+    margin:0 auto;
+    padding:20px 18px 60px;
+  }
+  header{
+    text-align:center;
+    padding:24px 10px;
+    background:var(--main-blue);
+    color:#fff;
+    border-radius:0 0 16px 16px;
+    margin-bottom:20px;
+  }
+  header h1{
+    margin:0;
+    font-size:1.5em;
+  }
+  header p{
+    margin:6px 0 0;
+    font-size:0.95em;
+    opacity:0.9;
+  }
+  .control-bar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .control-bar .left{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  button{
+    font-size:1em;
+    padding:10px 16px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    transition:transform 0.1s ease;
+  }
+  button:active{transform:scale(0.97);}
+  .btn-play{background:var(--main-blue);color:#fff;}
+  .btn-pause{background:#6c757d;color:#fff;}
+  .btn-stop{background:#aaa;color:#fff;}
+  .speed-select{
+    padding:9px 10px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    font-size:0.95em;
+  }
+  .status{
+    font-size:0.9em;
+    color:#555;
+    width:100%;
+    margin-top:4px;
+  }
+  section{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 20px 10px;
+    margin-bottom:22px;
+  }
+  section h2{
+    color:var(--main-blue);
+    border-bottom:2px solid var(--light-blue);
+    padding-bottom:10px;
+    font-size:1.25em;
+  }
+  .block{
+    margin-bottom:14px;
+    padding:12px 14px;
+    border-radius:10px;
+    background:var(--light-blue);
+    cursor:pointer;
+    transition:background 0.2s;
+  }
+  .block:hover{
+    background:#dceaf8;
+  }
+  .block.reading{
+    background:#c7e2fb;
+    box-shadow:0 0 0 2px var(--main-blue) inset;
+  }
+  .block-title{
+    font-weight:bold;
+    color:var(--main-blue);
+    margin-bottom:6px;
+  }
+  ul{
+    margin:6px 0;
+    padding-left:20px;
+  }
+  li{
+    margin-bottom:6px;
+  }
+  .warn-block{
+    background:var(--warn-bg);
+  }
+  .warn-block .block-title{
+    color:var(--warn-orange);
+  }
+  .warn-block.reading{
+    box-shadow:0 0 0 2px var(--warn-orange) inset;
+    background:#fbe4e1;
+  }
+  footer{
+    text-align:center;
+    color:#888;
+    font-size:0.85em;
+    margin-top:10px;
+  }
+  .badge{
+    display:inline-block;
+    background:var(--main-blue);
+    color:#fff;
+    border-radius:8px;
+    font-size:0.75em;
+    padding:2px 8px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+  .stage-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:6px;
+  }
+  .stage-table th,.stage-table td{
+    border:1px solid var(--border);
+    padding:8px 10px;
+    text-align:left;
+    font-size:0.95em;
+  }
+  .stage-table th{
+    background:var(--light-blue);
+  }
+  .no-voice-msg{
+    display:none;
+    background:#fff3cd;
+    border:1px solid #ffe69c;
+    color:#7a5d00;
+    padding:10px 14px;
+    border-radius:10px;
+    margin-bottom:16px;
+    font-size:0.9em;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>종합 안내문</h1>
+    <p>행정체제 개편 안내 &amp; 2026년 혹서기 대비 참여자 보호 대책</p>
+  </header>
+
+  <div class="no-voice-msg" id="noVoiceMsg">
+    ※ 이 기기/브라우저에서는 음성 읽기 기능이 지원되지 않을 수 있습니다. 텍스트 내용을 참고해 주세요.
+  </div>
+
+  <div class="control-bar">
+    <div class="left">
+      <button class="btn-play" id="playAllBtn">🔊 전체 듣기</button>
+      <button class="btn-pause" id="pauseBtn">⏸ 일시정지</button>
+      <button class="btn-stop" id="stopBtn">⏹ 정지</button>
+    </div>
+    <div>
+      <label for="speedSelect" style="font-size:0.9em;">읽기 속도&nbsp;</label>
+      <select class="speed-select" id="speedSelect">
+        <option value="0.8">천천히</option>
+        <option value="1" selected>보통</option>
+        <option value="1.2">빠르게</option>
+      </select>
+    </div>
+    <div class="status" id="statusText">▶ '전체 듣기'를 누르시면 위에서부터 순서대로 읽어드립니다. 각 항목을 직접 눌러도 그 부분만 들을 수 있습니다.</div>
+  </div>
+
+  <!-- 1. 행정체제 개편 -->
+  <section>
+    <h2>1. 행정체제 개편 관련 안내</h2>
+
+    <div class="block" data-text="인천 중구의 행정 체제 개편으로 인한 변동 사항을 안내해 드립니다. 어르신들께서는 안심하고 평소처럼 건강하게 참여해 주시기 바랍니다.">
+      <div class="block-title">개요</div>
+      인천 중구의 행정 체제 개편으로 인한 변동 사항을 안내해 드립니다. 어르신들께서는 안심하고 평소처럼 건강하게 참여해 주시기 바랍니다.
+    </div>
+
+    <div class="block" data-text="참여자 활동 유지. 행정구역 명칭만 바뀔 뿐, 근무지, 같이 일하는 동료, 하시는 역할은 단 하나도 바뀌지 않고 그대로 유지됩니다.">
+      <div class="block-title">참여자 활동 유지</div>
+      행정구역 <b>명칭만</b> 바뀔 뿐, 근무지·동료·역할은 단 하나도 바뀌지 않고 그대로 유지됩니다.
+    </div>
+
+    <div class="block" data-text="활동비 지급. 구청 명칭이 바뀌어도 어르신들의 소중한 활동비는 기존 통장으로 정해진 날짜에 정확히 지급되므로, 통장을 새로 바꾸실 필요가 전혀 없습니다.">
+      <div class="block-title">활동비 지급</div>
+      구청 명칭이 바뀌어도 활동비는 <b>기존 통장</b>으로 정해진 날짜에 정확히 지급됩니다. 통장을 새로 바꾸실 필요가 전혀 없습니다.
+    </div>
+
+    <div class="block" data-text="운영 지원. 그간 어르신들을 살뜰하게 챙겨드리던 센터의 담당 선생님들이 앞으로도 변함없이 안전과 활동을 지원해 드립니다.">
+      <div class="block-title">운영 지원</div>
+      지금까지 챙겨드리던 센터 담당 선생님들이 앞으로도 변함없이 안전과 활동을 지원해 드립니다.
+    </div>
+
+    <div class="block" data-text="물품 교체. 행정 개편에 따른 기관 명칭 변경 시 새로운 조끼와 명찰을 차례대로 배부할 예정입니다. 새 물품을 받기 전까지는 현재 가지고 계신 물품을 그대로 사용하시면 됩니다.">
+      <div class="block-title">물품 교체</div>
+      기관 명칭 변경 시 새로운 조끼와 명찰을 차례대로 배부할 예정입니다. 새 물품을 받기 전까지는 현재 가지고 계신 물품을 그대로 사용하시면 됩니다.
+    </div>
+
+    <div class="block" data-text="사업 지속성. 올해 사업은 계약 기간까지 안전하게 마무리되며, 내년도 일자리 신청 또한 새로운 구의 노인인력개발센터에서 동일하게 지원하실 수 있도록 상세히 안내해 드릴 예정입니다.">
+      <div class="block-title">사업 지속성</div>
+      올해 사업은 계약 기간까지 안전하게 마무리되며, 내년도 일자리 신청도 새 구의 노인인력개발센터에서 동일하게 지원하실 수 있도록 상세히 안내드릴 예정입니다.
+    </div>
+  </section>
+
+  <!-- 2. 혹서기 대비 -->
+  <section>
+    <h2>2. 2026년 혹서기 대비 참여자 보호 대책 <span class="badge">중요</span></h2>
+
+    <div class="block warn-block" data-text="여름철 폭염으로부터 참여자의 건강과 안전을 보호하기 위해 탄력 운영을 실시합니다. 적용 기간은 2026년 7월 1일부터 8월 31일까지이며, 노인공익활동사업단 전체 805명을 대상으로 합니다.">
+      <div class="block-title">적용 기간 및 대상</div>
+      2026년 <b>7월 1일 ~ 8월 31일</b>, 노인공익활동사업단 전체(805명) 대상.
+    </div>
+
+    <div class="block warn-block" data-text="활동 시간 변경입니다. 월 총 활동시간은 월 30시간에서 월 15시간으로 단축 운영합니다. 일일 활동시간은 일 3시간에서 일 2시간으로 단축하거나 상황에 따라 활동을 중단합니다. 실외 사업단은 오전 8시부터 11시, 또는 7시 30분부터 10시 30분까지로 활동 시간을 조정하여 폭염 시간대를 회피합니다.">
+      <div class="block-title">활동 시간 변경 (혹서기 조정)</div>
+      <ul>
+        <li>월 총 활동시간: 월 30시간 → <b>월 15시간</b></li>
+        <li>일일 활동시간: 일 3시간 → <b>일 2시간</b> (상황에 따라 중단)</li>
+        <li>실외 사업단: <b>오전 8시~11시</b> 또는 07:30~10:30로 조정</li>
+      </ul>
+    </div>
+
+    <div class="block warn-block" data-text="폭염 단계별 대응 기준입니다. 폭염주의보, 33도 이상일 경우 활동시간 단축 및 실내활동으로 전환합니다. 폭염경보, 35도 이상일 경우 실외활동을 전면 중단하고 즉시 귀가합니다. 폭염중대경보, 38도 이상일 경우 활동을 전면 중단하고 비대면 교육을 실시합니다.">
+      <div class="block-title">폭염 단계별 대응 기준</div>
+      <table class="stage-table">
+        <tr><th>단계</th><th>기준</th><th>조치</th></tr>
+        <tr><td>폭염주의보</td><td>33℃ 이상</td><td>활동시간 단축, 실내활동 전환</td></tr>
+        <tr><td>폭염경보</td><td>35℃ 이상</td><td>실외활동 전면 중단, 즉시 귀가</td></tr>
+        <tr><td>폭염중대경보</td><td>38℃ 이상</td><td>활동 전면 중단, 비대면 교육</td></tr>
+      </table>
+    </div>
+
+    <div class="block" data-text="대체 활동입니다. 폭염으로 인한 활동 중단 시 안전 워크북 교육 등으로 대체할 수 있으며, 이 시간도 활동 시간으로 인정됩니다. 혹서기 동안에는 비대면 교육 9시간 제한 규정이 한시적으로 해제됩니다.">
+      <div class="block-title">대체 활동</div>
+      활동 중단 시 '안전워크북' 교육 등으로 대체 가능하며, 이 시간도 활동 시간으로 인정됩니다. (혹서기 동안 비대면 교육 9시간 제한 한시적 해제)
+    </div>
+
+    <div class="block" data-text="안전 관리 및 응급 조치입니다. 생수, 모자, 쿨토시, 쿨스카프, 휴대용 선풍기 등 안전물품을 사업단별로 지급합니다. 기저질환 보유자에 대한 사전 관리 및 무더위 쉼터 정보를 상시 공유합니다.">
+      <div class="block-title">안전 관리</div>
+      생수·모자·쿨토시·쿨스카프·휴대용 선풍기 등 안전물품을 사업단별로 지급합니다. 기저질환 보유자 사전 관리 및 무더위 쉼터 정보를 상시 공유합니다.
+    </div>
+
+    <div class="block warn-block" data-text="비상시 조치입니다. 의식이 있는 경우 즉시 그늘이나 실내로 이동 후 미지근한 물로 체온을 낮추고 안정을 취합니다. 의식이 없는 경우 즉시 119에 신고하여 의료기관으로 후송하는 것을 최우선으로 하며, 구급대 도착 전까지 서늘한 곳에서 기도를 확보하고 체온을 낮추는 조치를 지속합니다.">
+      <div class="block-title">⚠ 비상시 조치</div>
+      <ul>
+        <li><b>의식이 있는 경우</b>: 즉시 그늘·실내로 이동 → 미지근한 물로 체온 낮추기 → 안정</li>
+        <li><b>의식이 없는 경우</b>: 즉시 <b>119 신고</b> → 의료기관 후송 최우선. 구급대 도착 전까지 서늘한 곳에서 기도 확보 및 체온 낮추기 지속</li>
+      </ul>
+    </div>
+
+    <div class="block warn-block" data-text="당부 사항입니다. 날씨가 변하는 시기인 만큼, 일하시는 동안 안전과 건강이 최우선입니다. 몸이 조금이라도 불편하거나 어지러우시면 무리하지 마시고 즉시 센터 선생님이나 조장님께 알려주시기 바랍니다.">
+      <div class="block-title">당부 사항</div>
+      날씨가 변하는 시기인 만큼 안전과 건강이 최우선입니다. 몸이 조금이라도 불편하거나 어지러우시면 무리하지 마시고 즉시 <b>센터 선생님이나 조장님</b>께 알려주시기 바랍니다.
+    </div>
+  </section>
+
+  <footer>인천영종구노인인력개발센터</footer>
+</div>
+
+<script>
+let voices = [];
+let utterQueue = [];
+let currentIndex = -1;
+let isPaused = false;
+let blocks = Array.from(document.querySelectorAll('.block'));
+const statusText = document.getElementById('statusText');
+const noVoiceMsg = document.getElementById('noVoiceMsg');
+
+function loadVoices(){
+  voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+}
+if('speechSynthesis' in window){
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+} else {
+  noVoiceMsg.style.display = 'block';
+}
+
+function pickKoreanVoice(){
+  return voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ko')) || null;
+}
+
+function clearReadingHighlight(){
+  blocks.forEach(b => b.classList.remove('reading'));
+}
+
+function speakBlock(index, onEndCallback){
+  if(!('speechSynthesis' in window)) return;
+  clearReadingHighlight();
+  if(index < 0 || index >= blocks.length) return;
+  const block = blocks[index];
+  block.classList.add('reading');
+  block.scrollIntoView({behavior:'smooth', block:'center'});
+
+  const text = block.getAttribute('data-text') || block.innerText;
+  const utter = new SpeechSynthesisUtterance(text);
+  const koVoice = pickKoreanVoice();
+  if(koVoice) utter.voice = koVoice;
+  utter.lang = 'ko-KR';
+  utter.rate = parseFloat(document.getElementById('speedSelect').value) || 1;
+
+  utter.onend = () => {
+    if(onEndCallback) onEndCallback();
+  };
+  utter.onerror = () => {
+    if(onEndCallback) onEndCallback();
+  };
+
+  window.speechSynthesis.speak(utter);
+}
+
+function playFrom(index){
+  if(!('speechSynthesis' in window)){
+    statusText.textContent = '이 브라우저는 음성 읽기를 지원하지 않습니다.';
+    return;
+  }
+  currentIndex = index;
+  statusText.textContent = '🔊 읽고 있습니다... (' + (index+1) + ' / ' + blocks.length + ')';
+  speakBlock(currentIndex, () => {
+    if(isPaused) return;
+    if(currentIndex + 1 < blocks.length){
+      playFrom(currentIndex + 1);
+    } else {
+      statusText.textContent = '✅ 모든 안내를 다 읽어드렸습니다.';
+      clearReadingHighlight();
+      currentIndex = -1;
+    }
+  });
+}
+
+document.getElementById('playAllBtn').addEventListener('click', () => {
+  if(!('speechSynthesis' in window)){
+    statusText.textContent = '이 브라우저는 음성 읽기를 지원하지 않습니다. 텍스트로 확인해 주세요.';
+    return;
+  }
+  window.speechSynthesis.cancel();
+  isPaused = false;
+  playFrom(0);
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  if(!('speechSynthesis' in window)) return;
+  if(window.speechSynthesis.speaking && !window.speechSynthesis.paused){
+    window.speechSynthesis.pause();
+    isPaused = true;
+    statusText.textContent = '⏸ 일시정지되었습니다. 다시 누르면 이어듣기 됩니다.';
+  } else if(window.speechSynthesis.paused){
+    window.speechSynthesis.resume();
+    isPaused = false;
+    statusText.textContent = '🔊 다시 읽어드립니다...';
+  }
+});
+
+document.getElementById('stopBtn').addEventListener('click', () => {
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  isPaused = false;
+  currentIndex = -1;
+  clearReadingHighlight();
+  statusText.textContent = '⏹ 정지되었습니다. 처음부터 다시 들으시려면 "전체 듣기"를 눌러주세요.';
+});
+
+// 항목 클릭 시 해당 부분만 읽기
+blocks.forEach((block, idx) => {
+  block.addEventListener('click', () => {
+    if(!('speechSynthesis' in window)){
+      statusText.textContent = '이 브라우저는 음성 읽기를 지원하지 않습니다.';
+      return;
+    }
+    window.speechSynthesis.cancel();
+    isPaused = false;
+    statusText.textContent = '🔊 선택한 항목을 읽어드립니다...';
+    currentIndex = idx;
+    speakBlock(idx, () => {
+      statusText.textContent = '✅ 다 읽어드렸습니다. 다른 항목을 눌러보시거나 "전체 듣기"를 이용해 주세요.';
+      clearReadingHighlight();
+    });
+  });
+});
+</script>
+
+</body>
+</html>
